@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+<div class="container">
+    <h1>Nhập thông tin cá nhân</h1>
+    <div class="row">
+        <div class="col-sm">
+
+        </div>
+        <div class="col-sm">
+            <form method="POST" action="/me/done/de">
+                <div class="form-group">
+                    <label for="name">Mô tả</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                         placeholder="Mô tả">
+                </div>
+                <div class="form-group">
+                    <label for="age">Tên sản phẩm</label>
+                    <input type="text" class="form-control" id="age" name="age" aria-describedby="emailHelp"
+                        placeholder="Tên">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Email address</label>
+                    <input type="text" class="form-control" id="address" name="address" aria-describedby="emailHelp"
+                        placeholder="Video">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">đánh giá</label>
+                    <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                        placeholder="Mô tả">
+                </div>
+                {{!-- <div class="form-group">
+                    <label for="image">Ảnh</label>
+                    <input type="text" class="form-control" id="image" name="image" aria-describedby="emailHelp"
+                        placeholder="Mô tả">
+                </div> --}}
+
+
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-sm">
+
+        </div>
+    </div>
+</div>

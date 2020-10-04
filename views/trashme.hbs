@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Trang Chu <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline col-md-5 my-lg-0 ">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="/search">search</a></button>
+            </form>
+            <li class="navbar-nav mr-auto nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/muahang/creat">Creat</a>
+                    <a class="dropdown-item" href="buy/for/me">Private</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="navbar-nav mr-auto">
+
+                <a class="nav-link disabled" href="/register">Dang ki</a>
+                <a class="nav-link disabled" href="/login">Dang Xuat</a>
+            </li>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    <div>
+        <a href="/buy/for/me">Danh sách sản phẩm đã mua</a>
+        <h3>Sản phẩm của tôi đã xóa</h3>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Sản phẩm</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Đánh giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each produces}}
+            <tr>
+                <th scope="row">{{ @index }}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.decreption}}</td>
+                <td>{{this.rate}}</td>
+                <td>
+                    <a class="btn btn-link btn-restore" data-id="{{this._id}}" href="">Khôi phục</a>
+                    <a class="btn btn-link" href="" data-id="{{this._id}}" data-toggle="modal"
+                        data-target="#delete-produce-modal">Xóa vĩnh viễn</a>
+
+
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Thùng rác trống.
+                    <a href="/buy/for/me">Danh sách sản phẩm</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+<!-- confirm-->
+<div id="delete-produce-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sản phẩm đã mua</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa sản phẩm đã mua không ?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-produce" type="button" class="btn btn-danger">Xóa vĩnh viễn</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete form-->
+<form name="delete-produce-form" method="POST"></form>
+<form name="restore-produce-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var produceId
+        var deleteForm = document.forms['delete-produce-form']
+        var restoreForm = document.forms['restore-produce-form']
+        var btnDeleteProduce = document.getElementById('btn-delete-produce')
+        var restoreBtn = $('.btn-restore')
+        // when dialog confirm click
+        $('#delete-produce-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            produceId = button.data('id')
+
+
+        })
+
+        // when delete produce btn click
+
+        btnDeleteProduce.onclick = function () {
+            deleteForm.action = '/muahang/' + produceId + '/force?_method=DELETE'
+            deleteForm.submit()
+        }
+
+        //Restore btn clicked
+
+        restoreBtn.click(function (e) {
+            e.preventDefault()
+
+            var produceId = $(this).data('id')
+            restoreForm.action = '/muahang/' + produceId + '/restore?_method=PATCH'
+            restoreForm.submit()
+        })
+
+    })
+
+</script>
